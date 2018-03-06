@@ -21,7 +21,6 @@ import threading
 from zipfile import ZipFile
 from difflib import ndiff
 from tkinter import *
-#from socket import *
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
@@ -62,10 +61,40 @@ MainPath=ET.SubElement(MainMode,"Paths")
 szMainFrame = Frame()
 szMainFrame.grid()
 
+# Class for displaying the Tooltip
+class CreateToolTip(object):
+    '''
+    create a tooltip for a given widget
+    '''
+    def __init__(self, widget, text='widget info'):
+        self.widget = widget
+        self.text = text
+        self.widget.bind("<Enter>", self.enter)
+        self.widget.bind("<Leave>", self.close)
+    def enter(self, event=None):
+        x = y = 0
+        x, y, cx, cy = self.widget.bbox("insert")
+        x += self.widget.winfo_rootx() + 25
+        y += self.widget.winfo_rooty() + 20
+        # creates a toplevel window
+        self.tw = tk.Toplevel(self.widget)
+        # Leaves only the label and removes the app window
+        self.tw.wm_overrideredirect(True)
+        self.tw.wm_geometry("+%d+%d" % (x, y))
+        label = tk.Label(self.tw, text=self.text, justify='left',
+                       background='light goldenrod yellow', relief='solid', borderwidth=1,
+                       font=("times", "12", "normal"))
+        label.pack(ipadx=1)
+    def close(self, event=None):
+        if self.tw:
+            self.tw.destroy()
+
 # Function to select Root folder path
 def SelectMainPath():
     global RootLibraryFolderPath
     RootLibraryFolderPath=filedialog.askdirectory(title="Select Root Folder Path")
+    if len(RootLibraryFolderPath) == 0:
+        RootLibraryFolderPath = os.getcwd()
     txtEntryRootFolderPath.insert(0,RootLibraryFolderPath)
     txtEntryRootFolderPath.config(state=DISABLED)
 # Function to select CFD exe path
@@ -111,6 +140,8 @@ def CreateSettingsdialog():
     # Text entry to display selected root folder path
     txtEntryRootFolderPath = Entry(dialog_window,width=40,bg="azure")
     txtEntryRootFolderPath.grid(row=1,column=0,sticky=W,padx=5,ipady=4)
+    # Tooltip for root folder text entry
+    txtEntryRootFolderPathTooltip=CreateToolTip(txtEntryRootFolderPath,"Select the folder to create and \nstore all your testcases")
     # Label to display Select CFD exe
     lblSelectCfdExePath=Label(dialog_window,text="Select a path for CFD.exe(Mandatory):")
     lblSelectCfdExePath.grid(row=2,column=0,sticky=W)
@@ -120,12 +151,16 @@ def CreateSettingsdialog():
     # Text entry to display selected CFD exe path
     txtEntryCfdExePath = Entry(dialog_window,width=40,bg="azure")
     txtEntryCfdExePath.grid(row=3,column=0,sticky=W,padx=5,ipady=4)
+    # Tooltip for CFD solver text entry
+    txtEntryCfdExePathTooltip=CreateToolTip(txtEntryCfdExePath,"Select the path of CFD solver( .exe )")
     # Label for port number
     lblSelectPortNumber=Label(dialog_window,text="Port number:")
     lblSelectPortNumber.grid(row=4,column=0,sticky=W)
     # Text entry take port number
     txtPortNumber = Entry(dialog_window,width=40,bg="azure")
     txtPortNumber.grid(row=5,column=0,sticky=W,padx=5,ipady=4)
+    # Tooltip for port number text entry
+    txtPortNumberTooltip=CreateToolTip(txtPortNumber,"Enter the port number on which\nclient is running (default = '9999')")
     # Button to Select the port number
     btnPortNumber = Button(dialog_window, text='Click',bg="Light Blue",command=EnterPortNumber,width=7, height=1)
     btnPortNumber.grid(row=5,column=1,padx=10)
@@ -161,6 +196,8 @@ def OnClickCreateNewTestCaseWindow():
     # Text entry for printing the name of the test case
     txtEntryEnterTestcase = Entry(lblfCreateNewTestcase,width=50,bg="azure")
     txtEntryEnterTestcase.grid(row=0,column=1,pady=5,ipady=3)
+    # Tooltip for Testcasename text entry
+    txtEntryEnterTestcaseTooltip=CreateToolTip(txtEntryEnterTestcase,"Enter any name of your choice\n( Eg: Testcase1 )")
     # Label for the moedl filder
     lblModelFolder = Label(lblfCreateNewTestcase, font=('arial',10),text="Model folder :")
     lblModelFolder.grid(row=1,column=0,pady=2,sticky=W)
@@ -198,6 +235,9 @@ def OnClickCreateNewTestCaseWindow():
             if len(szModelFolder) == 0:
 		# Displaying the error message
                 messagebox.showerror("Error","Please select a valid folder, Selection process terninated")
+                return
+            if szModelFolder == RootLibraryFolderPath:
+                messagebox.showerror("Error","Model folder and Rootpath should not be same\nSelect different location")
             else:
                 txtEntryBrowseModelFolder.insert(0,szModelFolder)
                 txtEntryBrowseModelFolder.config(state=DISABLED)
@@ -217,7 +257,8 @@ def OnClickCreateNewTestCaseWindow():
     btnBrowseModelFolder=Button(lblfCreateNewTestcase,text="Browse...",
                                 bg="Light Blue",command=OnClickCreateNewTestCase,width=7)
     btnBrowseModelFolder.grid(row=1,column=2,pady=2,padx=10)
-
+    # Tool tip for Model Folder Browse button
+    szBrowseModelFolderTooltip = CreateToolTip(btnBrowseModelFolder, "Select the model folder which \ncontains the python scipt to run on CFD")
     # Label for the Python script
     lblPythonScript = Label(lblfCreateNewTestcase, font=('arial',10),text="Python script :")
     lblPythonScript.grid(row=2,column=0,pady=2,sticky=W)
@@ -242,7 +283,6 @@ def OnClickCreateNewTestCaseWindow():
         else:
             txtEntryPythonScript.insert(0,szPythonFilePath)
             txtEntryPythonScript.config(state=DISABLED)
-            
             szTempFolder=os.path.join(szTargetFolderPath,"Temp")
             os.makedirs(szTempFolder)
             szFilesInsideBaseline=os.listdir(szCopiedModelFolder)
@@ -264,6 +304,8 @@ def OnClickCreateNewTestCaseWindow():
     btnBrowsePythonScript=Button(lblfCreateNewTestcase,text="Browse...",
                                 bg="Light Blue",command=OnClickSelectPythonFile,width=7, height=1)
     btnBrowsePythonScript.grid(row=2,column=2,pady=2,padx=10,)
+    # Tool tip for python script Browse button
+    btnBrowsePythonScriptTooltip = CreateToolTip(btnBrowsePythonScript, "Select the python script to\nrun on CFD solver")
     # Label for the Baseline files
     lblBaselineFiles = Label(lblfCreateNewTestcase, font=('arial',10),text="Baseline files :")
     lblBaselineFiles.grid(row=4,column=0,sticky=W)
@@ -284,6 +326,8 @@ def OnClickCreateNewTestCaseWindow():
     # Button to Add theBaseline files
     btnBrowseBaselineFiles=Button(lblfCreateNewTestcase,text="Add",bg="Light Blue",width=7, height=1,command=OnClickAddBaselineFilesList)
     btnBrowseBaselineFiles.grid(row=3,column=2)
+    # Tooltip for add baseline files button
+    btnBrowseBaselineFilesTooltip=CreateToolTip(btnBrowseBaselineFiles,"Select the files to be added\ninto baseline for comparision")
     #button to delete the baseline files
     def OnClickDeleteBaselineFileList():
         if len(lstBoxListAllBaseLineFiles.get(0,END)) == 0:
@@ -294,6 +338,8 @@ def OnClickCreateNewTestCaseWindow():
         
     btnBrowseDeleteFiles=Button(lblfCreateNewTestcase,text="Delete",bg="Light Blue",width=7, height=1,command=OnClickDeleteBaselineFileList)
     btnBrowseDeleteFiles.grid(row=4,column=2)
+    # Tooltip for delete baseline files button
+    btnBrowseDeleteFilesTooltip=CreateToolTip(btnBrowseDeleteFiles,"Select the files in the listbox to be\nremoed from the baseline and click\non Delete button")
     # Button to Copy the files into baseline files
     def OnClickCopyTheFilesTOBaseline():
         if len(lstBoxListAllBaseLineFiles.get(0,END)) == 0:
@@ -395,9 +441,13 @@ def CreateRunTestWindow():
     # Label test case name
     lblAppname = Label(lblfRunTestcase,text="Test Cases :")
     lblAppname.grid(row=0,column=0,sticky=W,padx=5)
+    # Tooltip for label testcase name
+    lblAppnameTooltip=CreateToolTip(lblAppname,"You can select any\nnumber of testcases to run")
     # Label test status
-    lblAppname = Label(lblfRunTestcase,text="Status :")
-    lblAppname.grid(row=0,column=1,sticky=W)
+    lblStatus = Label(lblfRunTestcase,text="Status :")
+    lblStatus.grid(row=0,column=1,sticky=W)
+    # Tooltip for label client list
+    lblStatusTooltip=CreateToolTip(lblStatus,"Future use")
     # List box to display all the testcases
     lstBoxListAllTestCases = Listbox(lblfRunTestcase,selectmode='multiple',width=30,height=6,bg="azure",exportselection=0)
     lstBoxListAllTestCases.grid(row=1,column=0,padx=5,ipady=40,sticky=W)
@@ -573,6 +623,8 @@ def CreateRunTestWindow():
     # Label for Client list
     lblClientList = Label(lblfRunTestcase,text="Client List :")
     lblClientList.grid(row=2,column=0,sticky=W,padx=5)
+    # Tooltip for label client list
+    lblClientListTooltip=CreateToolTip(lblClientList,"You can either select 'LocalRun'\nor any number of client IP-Address")
     # List box to display the client list
     lstBoxListAllClients = Listbox(lblfRunTestcase,exportselection=0,width=30,height=6,bg="azure")
     lstBoxListAllClients.grid(row=3,column=0,padx=5,sticky=W,rowspan=2)
@@ -581,6 +633,8 @@ def CreateRunTestWindow():
     # Button to add client
     btnAddClient = Button(lblfRunTestcase, text='AddClient', bg="Light Blue",width=7, height=1,command=ShowEnerClientdialog)
     btnAddClient.grid(row=3,column=1)
+    # Tooltip for add client button
+    btnAddClientTooltip=CreateToolTip(btnAddClient,"Enter the IP-Address\nof the client machine")
     # Button to run the Testcase
     btnRun = Button(lblfRunTestcase, text='Run', bg="Light Blue",width=7, height=1,command=OnSelectRunTestCase)
     btnRun.grid(row=4,column=1)
