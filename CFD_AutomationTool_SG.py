@@ -526,8 +526,8 @@ def CreateRunTestWindow():
                         szLocalOutputResult=open(os.path.join(szLocalFolder, "report.html"), "a")
                         szLocalOutputResult.write(szDifferenceInRun)
                         szLocalOutputResult.close()
-                        url=os.path.join(szLocalFolder, "report.html")
-                    webbrowser.open(url,new=szBrowserNewTab)
+                        urlLocalRun=os.path.join(szLocalFolder, "report.html")
+                    webbrowser.open(urlLocalRun,new=szBrowserNewTab)
             szDialogEindowForRunTestcase.destroy()
         else:
             def GetAllFilePath(directory):
@@ -598,11 +598,11 @@ def CreateRunTestWindow():
                     szLocalOutputResult=open(os.path.join(szClientFolder, "report.html"), "a")
                     szLocalOutputResult.write(szDifferenceInRun)
                     szLocalOutputResult.close()
-                    url=os.path.join(szClientFolder, "report.html")
-                webbrowser.open(url,new=szBrowserNewTab)
+                    urlClientRun=os.path.join(szClientFolder, "report.html")
+                webbrowser.open(urlClientRun,new=szBrowserNewTab)
                 szSocket.close()
                 
-            for i in szListBoxSelectedValue:
+            for i in szListBoxSelectedClient:
                 szIpAddress=lstBoxListAllClients.get(i)
                 for j in szListBoxSelectedValue:
                     szSelectedClientTestCase=lstBoxListAllTestCases.get(j)
@@ -626,7 +626,7 @@ def CreateRunTestWindow():
     # Tooltip for label client list
     lblClientListTooltip=CreateToolTip(lblClientList,"You can either select 'LocalRun'\nor any number of client IP-Address")
     # List box to display the client list
-    lstBoxListAllClients = Listbox(lblfRunTestcase,exportselection=0,width=30,height=6,bg="azure")
+    lstBoxListAllClients = Listbox(lblfRunTestcase,selectmode='multiple',exportselection=0,width=30,height=6,bg="azure")
     lstBoxListAllClients.grid(row=3,column=0,padx=5,sticky=W,rowspan=2)
     # Fixed list box value for Local machine 
     lstBoxListAllClients.insert(0,"LocalRun")
