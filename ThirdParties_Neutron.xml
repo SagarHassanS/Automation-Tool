@@ -1,0 +1,408 @@
+<ThirdParties>
+    <!-- THIS IS FOR NEUTRON -->
+    <!-- mfmesher -->
+    <ThirdParty Id="mfmesher" SDK="True">
+      <Platform Target="WIN64" Version="3.0.0" Package="WIN64">
+        <Configuration Target="Debug">
+          <Path>\lib\Release_x64</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\lib\Release_x64</Path>
+        </Configuration>
+      </Platform>
+      <Platform Target="Linux" Version="3.0.0" Package="Linux">
+        <Configuration Target="Debug">
+          <Path>/lib</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>/lib</Path>
+        </Configuration>
+      </Platform>
+    </ThirdParty>
+
+    <!-- cfd_ndxmap -->
+    <ThirdParty Id="CFD_NDXMAP" SDK="True">
+      <Platform Target="WIN64" Version="1.0" Package="WIN64">
+        <Configuration Target="Debug">
+          <Path>\lib64\Debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\lib64\Release</Path>
+        </Configuration>
+      </Platform>
+    </ThirdParty>
+
+    <!-- tbb (standalone dev assistance) -->
+    <ThirdParty Id="TBB" SDK="True">
+      <Platform Target="WIN64" Version="2017U5-0226" Package="WIN64">
+        <Configuration Target="Debug">
+          <Path>\bin\vc14</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\bin\vc14</Path>
+        </Configuration>
+      </Platform>
+      <Platform Target="Linux" Version="2017U5-0226" Package="Linux">
+        <Configuration Target="Debug">
+          <Path>/Bin</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>/Bin</Path>
+        </Configuration>
+      </Platform>
+    </ThirdParty>
+  
+   
+  <!-- ScalarisDataModel -->
+  <ThirdParty Id="ScalarisDataModel" SDK="True">
+    <Platform Package="WIN64" Target="WIN64" Version="14.6.0.772">
+      <Configuration PackageName="{Version}/WIN64-Debug.zip" Target="Debug"/>
+      <Configuration PackageName="{Version}/WIN64-Release.zip" Target="Release"/>
+    </Platform>
+    <Platform Package="Linux" Target="Linux" Version="14.6.0.772">
+      <Configuration PackageName="{Version}/Linux-Debug.zip" Target="Debug"/>
+      <Configuration PackageName="{Version}/Linux-Release.zip" Target="Release"/>
+    </Platform>
+  </ThirdParty>
+  
+   
+     <!-- Aspen -->
+  <ThirdParty Id="Aspen" SDK="True">
+    <Platform Target="WIN64" Version="2019-08-05" Package="WIN64">
+      <Configuration Target="Debug">
+        <Path>\Debug\bin</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>\bin</Path>
+      </Configuration>
+    </Platform>
+    <Platform Target="Linux" Version="2019-08-05" Package="Linux_2">
+      <Configuration Target="Debug">
+        <Path>/bin</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>/bin</Path>
+      </Configuration>
+    </Platform>
+  </ThirdParty>   
+
+    <!-- NasCryptLib -->
+    <ThirdParty Id="NasCryptToolkit" SDK="True">
+      <Platform Target="Linux" Version="3.0.1" Package="LINUX64">
+      </Platform>
+    </ThirdParty>  
+
+    <!-- w4log -->
+    <ThirdParty Id="w4log" SDK="True">
+      <Platform Target="WIN64" Version="2017-09-26" Package="WIN64">
+        <Configuration Target="Debug">
+          <Path>\lib</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\lib</Path>
+        </Configuration>
+      </Platform>
+      <Platform Target="Linux" Version="2017-09-26" Package="Linux">
+        <Configuration Target="Debug">
+          <Path>/lib</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>/lib</Path>
+        </Configuration>
+      </Platform>
+    </ThirdParty> 
+
+    <!-- BOOST -->
+    <ThirdParty Id="BOOST" SDK="True">
+      <Platform Package="WIN64" Target="WIN64" Version="1.65.1_modifiedForCompilerWarnings">
+        <Configuration Target="Debug">
+          <Path>\bin\debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\bin\release</Path>
+        </Configuration>
+      </Platform>
+      <Platform Package="MAC64" Target="MAC64" Version="1.65.1">
+        <Configuration Target="Debug">
+          <SystemPath>/lib/debug</SystemPath>
+        </Configuration>
+        <Configuration Target="Release">
+          <SystemPath>/lib/release</SystemPath>
+        </Configuration>
+        <CopyForInstall>
+          <Default included="true"/>
+        </CopyForInstall>
+      </Platform>
+      <Platform Package="Linux" Target="Linux" Version="1.65.1">
+        <Configuration Target="Debug">
+          <Path>/lib/debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>/lib/release</Path>
+        </Configuration>
+        <CopyForInstall>
+          <Default included="true"/>
+        </CopyForInstall>
+      </Platform>
+    </ThirdParty>
+
+	
+  <!-- XERCES -->
+  <ThirdParty Id="XERCES" SDK="True">
+    <Platform Package="WIN64_1" Target="WIN64" Version="3.2.1">
+      <Configuration Target="Debug">
+        <SystemPath>\bin</SystemPath>
+      </Configuration>
+      <Configuration Target="Release">
+        <SystemPath>\bin</SystemPath>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+          <command exec="robocopy %_XERCES%\%_PATH% %_NEUTRON_INSTALLFOLDER% *.dll /S /XO" />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+    <Platform Package="MAC64_1" Target="MAC64" Version="3.2.1">
+      <Configuration Target="Debug">
+        <SystemPath>/lib/debug</SystemPath>
+      </Configuration>
+      <Configuration Target="Release">
+        <SystemPath>/lib/release</SystemPath>
+      </Configuration>
+      <CopyForInstall>
+        <Default included="true"/>
+      </CopyForInstall>
+    </Platform>
+    <Platform Target="Linux" Version="3.2.1" Package="Linux">
+      <Configuration Target="Debug">
+        <SystemPath>/lib</SystemPath>
+      </Configuration>
+      <Configuration Target="Release">
+        <SystemPath>/lib</SystemPath>
+      </Configuration>
+      <CopyForInstall>
+        <Default included="true"/>
+      </CopyForInstall>
+    </Platform>
+  </ThirdParty>
+
+  <!-- ASM -->
+  <ThirdParty Id="ASM" SDK="True">
+    <Platform Target="WIN64" Version="225.2.0" Package="WIN64_1">
+     <Configuration Target="Debug">
+        <SystemPath>\lib\NT_DLLD_A_140-64</SystemPath>
+      </Configuration>
+      <Configuration Target="Release">
+        <SystemPath>\lib\NT_DLL_A_140-64</SystemPath>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+          <command exec="robocopy %_ASM%\%_PATH% %_NEUTRON_INSTALLFOLDER% *.dll /S /XO" />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+    <Platform Target="MAC64" Version="225.2.0" Package="MAC64">
+      <CopyForInstall>
+        <Default included="true"/>
+      </CopyForInstall>
+    </Platform>
+    <Platform Target="Linux" Version="225.2.0" Package="Linux_1">
+      <CopyForInstall>
+        <Default included="true"/>
+      </CopyForInstall>
+    </Platform>
+  </ThirdParty>
+
+	<!-- FNOReader -->
+  <ThirdParty Id="FNOReader" SDK="True">
+    <Platform Target="WIN64" Version="1.0.06" Package="WIN64">
+        <Configuration Target="Debug">
+          <Path>\lib64\debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+          <Path>\lib64\release</Path>
+        </Configuration>
+    </Platform>
+    <Platform Target="MAC64" Version="1.0.06" Package="MAC64">
+        <Configuration Target="Debug">
+            <Path>/lib64/debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+            <Path>/lib64/release</Path>
+        </Configuration>
+    </Platform>
+  <Platform Target="Linux" Version="1.0.06" Package="Linux">
+        <Configuration Target="Debug">
+            <Path>/lib64/debug</Path>
+        </Configuration>
+        <Configuration Target="Release">
+            <Path>/lib64/release</Path>
+        </Configuration>
+    </Platform>
+  </ThirdParty>
+
+
+  <!-- PLASSOSOLVERS -->
+  <!-- Only 64 bit supported -->
+  <!-- the Mac version will be added later -->
+  <ThirdParty Id="PLASSOSOLVERS">
+    <Platform Target="WIN64" Version="1.0.2_merge" Package="WIN64">
+      <Configuration Target="Debug">
+        <Path>\lib64\debug</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>\lib64\release</Path>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+          <command exec="robocopy %_PLASSOSOLVERS%\%_PATH% %_NEUTRON_INSTALLFOLDER% *.* /S /XO" />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+    <Platform Target="MAC64" Version="1.0.2_merge" Package="MAC64d">
+      <Configuration Target="Debug">
+        <Path>/debug</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>/release</Path>
+      </Configuration>
+      <CopyForInstall>
+        <Default included="true"/>
+      </CopyForInstall>
+    </Platform>
+
+  </ThirdParty>
+
+  <!-- NASTRANSolver -->
+  <ThirdParty Id="NASTRANSolver" SDK="True">
+    <Platform Target="WIN64" Version="13.0.1.215" Package="WIN64">
+      <Configuration Target="Debug">
+        <Path>\lib64\release</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>\lib64\release</Path>
+      </Configuration>
+    </Platform>
+  <Platform Target="Linux" Version="13.0.1.214" Package="Linux">
+      <Configuration Target="Debug">
+        <Path>/lib64/release</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>/lib64/release</Path>
+      </Configuration>
+    </Platform>
+  </ThirdParty>
+
+  <!-- Python -->
+  <ThirdParty Id="PYTHON" SDK="True">
+    <!-- WIN32 Not updated since not supported so much any more.... -->
+    <Platform Target="WIN64" Version="3.3.5" Package="WIN64_full_f">
+      <Configuration Target="Debug">
+        <Path>\DLLs</Path>
+        <Path>\</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>\DLLs</Path>
+        <Path>\</Path>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+          <command exec="robocopy %_PYTHON%\%_PATH% %_NEUTRON_INSTALLFOLDER% *.dll /S /XO /XD runtimeroots" />
+          <command exec="robocopy %_PYTHON%\Lib %_NEUTRON_INSTALLFOLDER%\Python\Lib *.* /S /XO" />
+          <command exec="robocopy %_PYTHON%\DLLs %_NEUTRON_INSTALLFOLDER%\Python\DLLs *.* /S /XO" />
+          <command exec="robocopy %_PYTHON%\DLLs %_NEUTRON_INSTALLFOLDER% python32.dll /S /XO" />
+        </Default>
+      </CopyForInstall>
+          <ExcludeFromInstall>
+               <file name="msvcp110.dll"/>
+               <file name="msvcr110.dll"/>
+               <file name="msvcr100.dll"/>
+          </ExcludeFromInstall>
+    </Platform>
+    <Platform Target="MAC64" Version="3.3.5" Package="MAC64c">
+      <Configuration Target="Debug">
+        <Path>/bin</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>/bin</Path>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+            <command exec='cp -a "${_PYTHON}${_PATH}/Python.framework" "${_NEUTRON_INSTALLFOLDER}"'/>
+            <command exec='rm "${_NEUTRON_OUTPUT}/MAC64/${_NEUTRON_CONFIG}/Frameworks/Python.framework"'/>
+            <command exec='ln -s "${_NEUTRON_INSTALLFOLDER}/Python.framework" "${_NEUTRON_OUTPUT}/MAC64/${_NEUTRON_CONFIG}/Frameworks/Python.framework"' />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+  <Platform Target="Linux" Version="3.5.2" Package="Linux">
+      <Configuration Target="Debug">
+        <Path>/bin</Path>
+      </Configuration>
+      <Configuration Target="Release">
+        <Path>/bin</Path>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+            <command exec='cp -a "${_PYTHON}${_PATH}/Python.framework" "${_NEUTRON_INSTALLFOLDER}"'/>
+            <command exec='rm "${_NEUTRON_OUTPUT}/Linux/${_NEUTRON_CONFIG}/Frameworks/Python.framework"'/>
+            <command exec='ln -s "${_NEUTRON_INSTALLFOLDER}/Python.framework" "${_NEUTRON_OUTPUT}/Linux/${_NEUTRON_CONFIG}/Frameworks/Python.framework"' />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+  </ThirdParty>
+
+  <!-- CMAKE -->
+  <ThirdParty Id="CMAKE" SDK="True">
+      <Platform Target="WIN64" Version="3.5.0.rc2" Package="WIN"/>
+      <Platform Target="MAC64" Version="3.5.0.rc2" Package="MAC64"/>
+  <Platform Target="Linux" Version="3.7.2" Package="Linux"/>
+  </ThirdParty>
+
+  <!-- Distene -->
+  <ThirdParty Id="Distene">
+    <Platform Target="WIN64" Version="2.4-1v" Package="WIN64_novox">
+       <CopyForInstall>
+         <Default>
+           <command exec="robocopy %_Distene%\lib64 %_NEUTRON_INSTALLFOLDER% *.*" />
+         </Default>
+       </CopyForInstall>
+    </Platform>
+    <Platform Target="MAC64" Version="2.3-6" Package="MAC64_novox">
+    </Platform>
+  <Platform Target="Linux" Version="2.4-3" Package="Linux">
+    </Platform>
+  </ThirdParty>
+
+  <!-- Voxelizer -->
+  <ThirdParty Id="Voxelizer">
+    <Platform Target="WIN64" Version="19.2017.4.4" Package="WIN64">
+       <CopyForInstall>
+         <Default>
+           <command exec="robocopy %_Voxelizer%\lib64 %_NEUTRON_INSTALLFOLDER% *.*" />
+         </Default>
+       </CopyForInstall>
+    </Platform>
+    <Platform Target="MAC64" Version="1.0.0.0" Package="MAC64">
+    </Platform>
+  <Platform Target="Linux" Version="19.2017.4.4" Package="Linux">
+    </Platform>
+  </ThirdParty>
+
+  <!-- MTBR -->
+  <ThirdParty Id="MTBR" SDK="True">
+    <Platform Target="WIN64" Version="2.0.1.2500_M140" Package="WIN64">
+      <Configuration Target="Debug">
+        <SystemPath>\lib\NT_DLLD_A_140-64</SystemPath>
+      </Configuration>
+      <Configuration Target="Release">
+        <SystemPath>\lib\NT_DLL_A_140-64</SystemPath>
+      </Configuration>
+      <CopyForInstall>
+        <Default>
+          <command exec="robocopy %_MTBR%\%_PATH% %_NEUTRON_INSTALLFOLDER% *.dll /S /XO" />
+        </Default>
+      </CopyForInstall>
+    </Platform>
+  </ThirdParty>
+
+</ThirdParties>
